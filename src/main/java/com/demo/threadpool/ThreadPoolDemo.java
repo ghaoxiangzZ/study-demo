@@ -1,56 +1,35 @@
 package com.demo.threadpool;
 
-import java.util.concurrent.CountDownLatch;
+import jodd.util.concurrent.ThreadFactoryBuilder;
+
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
-public class ThreadPoolDemo implements Runnable {
+public class ThreadPoolDemo {
 
-    private int id;
-    private CountDownLatch latch;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public CountDownLatch getLatch() {
-        return latch;
-    }
-
-    public void setLatch(CountDownLatch latch) {
-        this.latch = latch;
-    }
-
-    public ThreadPoolDemo(int id, CountDownLatch latch) {
-        this.id = id;
-        this.latch = latch;
-    }
-
-    @Override
-    public void run() {
-        System.out.println("线程:" + Thread.currentThread().getName() + "执行ID:" + id);
-        try {
-            Thread.sleep(10);
-            latch.countDown();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+    private static final ThreadPoolExecutor threadPool = null;
 
     public static void main(String[] args) throws InterruptedException {
-        CountDownLatch countDownLatch = new CountDownLatch(1000);
-        long start = System.currentTimeMillis();
-        ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newFixedThreadPool(8);
-        for (int i = 0; i < 1000; i++) {
-            ThreadPoolDemo threadPoolDemo = new ThreadPoolDemo(i, countDownLatch);
-            threadPoolExecutor.execute(threadPoolDemo);
-        }
-        countDownLatch.await();
-        long end = System.currentTimeMillis();
-        System.out.println("总耗时：" + (end - start) + "ms");
+        printStats(threadPool);
+        Thread.sleep(1000);
+        ThreadPoolExecutor threadPool = new ThreadPoolExecutor(2, 5, 5,
+                TimeUnit.SECONDS, new ArrayBlockingQueue<>(10), new ThreadFactoryBuilder().setNameFormat("demo-%d").get(),
+                new DemoRejectedExecutionHandler());
+        IntStream.rangeClosed(0, 1000).forEach(i -> threadPool.execute(() -> System.out.println(Thread.currentThread().getName() + ":" + i)));
+        Thread.sleep(1000);
+    }
+
+    private static void printStats(ThreadPoolExecutor threadPool) {
+        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(() -> {
+            System.out.println("=========================");
+            System.out.println("Pool Size:"+threadPool.getPoolSize());
+            System.out.println("Active Threads:"+threadPool.getActiveCount());
+            System.out.println("Number of Tasks Completed: "+threadPool.getCompletedTaskCount());
+            System.out.println("Number of Tasks in Queue: "+threadPool.getQueue().size());
+            System.out.println("=========================");
+        }, 0, 1, TimeUnit.SECONDS);
     }
 }

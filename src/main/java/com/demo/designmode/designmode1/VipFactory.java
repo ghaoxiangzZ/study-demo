@@ -14,7 +14,6 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Component
 public class VipFactory {
-
     private static ConcurrentHashMap<Integer, VipStrategy> vipStrategyMap = new ConcurrentHashMap<>();
 
     public static VipStrategy getVipStrategyByType(Integer type) {

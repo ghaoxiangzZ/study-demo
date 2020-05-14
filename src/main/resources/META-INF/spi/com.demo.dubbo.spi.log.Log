@@ -1,0 +1,2 @@
+defaultLog = com.demo.dubbo.spi.log.impl.DefaultLog
+currLog = com.demo.dubbo.spi.log.impl.CurrentLog

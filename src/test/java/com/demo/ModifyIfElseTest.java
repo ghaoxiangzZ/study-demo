@@ -1,8 +1,8 @@
 package com.demo;
 
-import com.demo.designmode.designmode1.enums.VipEnum;
-import com.demo.designmode.designmode1.factory.VipFactory;
-import com.demo.designmode.designmode1.strategy.VipStrategy;
+import com.demo.designmode.designmode.enums.VipEnum;
+import com.demo.designmode.designmode.factory.VipFactory;
+import com.demo.designmode.designmode.strategy.VipStrategy;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

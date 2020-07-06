@@ -1,6 +1,6 @@
-package com.demo.designmode.designmode1.factory;
+package com.demo.designmode.designmode.factory;
 
-import com.demo.designmode.designmode1.strategy.VipStrategy;
+import com.demo.designmode.designmode.strategy.VipStrategy;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.ConcurrentHashMap;

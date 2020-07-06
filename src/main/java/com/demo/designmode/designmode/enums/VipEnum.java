@@ -1,4 +1,4 @@
-package com.demo.designmode.designmode1.enums;
+package com.demo.designmode.designmode.enums;
 
 /**
  * @author haoxiang_guo

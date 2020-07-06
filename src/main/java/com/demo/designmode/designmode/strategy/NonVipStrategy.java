@@ -1,7 +1,7 @@
-package com.demo.designmode.designmode1.strategy;
+package com.demo.designmode.designmode.strategy;
 
-import com.demo.designmode.designmode1.enums.VipEnum;
-import com.demo.designmode.designmode1.factory.VipFactory;
+import com.demo.designmode.designmode.enums.VipEnum;
+import com.demo.designmode.designmode.factory.VipFactory;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

@@ -1,4 +1,4 @@
-package com.demo.designmode.designmode1.strategy;
+package com.demo.designmode.designmode.strategy;
 
 import org.springframework.beans.factory.InitializingBean;
 
